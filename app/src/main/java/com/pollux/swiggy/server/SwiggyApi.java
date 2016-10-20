@@ -11,7 +11,7 @@ import rx.Observable;
  * <p>
  * Copyright (C) 2016
  */
-interface SwiggyApi {
+public interface SwiggyApi {
     @GET("bins/ngcc")
     Observable<Restaurant> getRestaurantList(@Query("page") int page);
 }
