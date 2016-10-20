@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:id="@+id/thumb"
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_toRightOf="@+id/thumb"
+                tools:text="AVACADO"
+                android:id="@+id/name"
+                android:maxLines="1"
+                android:textStyle="normal"
+                android:typeface="serif"
+                android:layout_marginLeft="14dp"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary" />
+
+
+            <TextView
+                android:layout_toRightOf="@+id/thumb"
+                tools:text="Nothing comes so easy"
+                android:id="@+id/cuisine"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="2dp"
+                android:textStyle="normal"
+                android:typeface="serif"
+                android:layout_marginLeft="14dp"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:layout_toRightOf="@+id/thumb"
+                tools:text="Nothing comes so easy"
+                android:id="@+id/textView"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="2dp"
+                android:textStyle="normal"
+                android:typeface="serif"
+                android:layout_marginLeft="14dp"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary" />
+
+            <View
+                android:id="@+id/sep"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/thumb"
+                android:layout_below="@id/cuisine"
+                android:layout_marginLeft="15dp"
+                android:background="@color/divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
+            <TextView
+                android:layout_toRightOf="@+id/thumb"
+                tools:text="$$"
+                android:id="@+id/cost"
+                android:layout_below="@+id/sep"
+                android:layout_marginTop="5dp"
+                android:textStyle="normal"
+                android:typeface="serif"
+                android:layout_marginLeft="14dp"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#87c852" />
+
+
+            <ImageView
+               android:layout_toRightOf="@+id/cost"
+                android:layout_width="18dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="16dp"
+                android:layout_below="@+id/sep"
+                android:id="@+id/imgRating"
+                card_view:srcCompat="@drawable/ic_star_border_black_24dp"
+                android:layout_height="18dp" />
+            <TextView
+                android:layout_toRightOf="@+id/imgRating"
+                tools:text="4.7"
+                android:id="@+id/rating"
+                android:layout_below="@+id/sep"
+                android:layout_marginTop="6dp"
+                android:textStyle="normal"
+                android:typeface="serif"
+                android:layout_marginLeft="2dp"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary" />
+
+            <ImageView
+                android:id="@+id/more"
+                android:layout_below="@+id/sep"
+                android:layout_marginTop="6dp"
+                android:layout_alignParentRight="true"
+                card_view:srcCompat="@drawable/ic_more_horiz_black_24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+               />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

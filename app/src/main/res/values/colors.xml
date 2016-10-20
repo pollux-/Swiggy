@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#212733</color>
+    <color name="colorPrimaryDark">#212733</color>
+    <color name="colorAccent">#f5861f</color>
+    <color name="divider">#e0e0e0</color>
+    <color name="shimmer_bg_color">#eeeeee</color>
+</resources>
