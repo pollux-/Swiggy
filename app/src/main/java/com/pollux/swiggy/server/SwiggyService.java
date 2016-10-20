@@ -1,5 +1,7 @@
 package com.pollux.swiggy.server;
 
+import com.pollux.swiggy.BuildConfig;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -31,7 +33,7 @@ public class SwiggyService {
             builder.writeTimeout(TIME_OUT_MINUTE, TimeUnit.MINUTES);
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.myjson.com/")
+                    .baseUrl(BuildConfig.SERVER_BASE_URL)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(builder.build())

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Swiggy</string>
+    <string name="img_url">https://res.cloudinary.com/swiggy/image/upload/c_fill,f_auto,fl_lossy,h_</string>
 </resources>

@@ -89,9 +89,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             restaurantHolder.mCost.setText(restaurants.getCostForTwo());
             restaurantHolder.mRating.setText(restaurants.getAvgRating());
             Picasso.with(restaurantHolder.mThumb.getContext())
-                    .load("https://res.cloudinary.com/swiggy/image/upload/c_fill,f_auto,fl_lossy,h_"
-                            +restaurantHolder.mThumb.getHeight()+",q_100,w_"
-                            +restaurantHolder.mThumb.getWidth()+"/" + restaurants.cid)
+                    .load(restaurantHolder.mName.getContext().getString(R.string.img_url)
+                            + restaurantHolder.mThumb.getHeight() + ",q_100,w_"
+                            + restaurantHolder.mThumb.getWidth() + "/" + restaurants.cid)
                     .into(restaurantHolder.mThumb);
         }
 
@@ -110,13 +110,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     private static class RestaurantHolder extends RecyclerView.ViewHolder {
-        public ImageView mThumb;
-        public TextView mName;
-        public TextView mCuisines;
-        public TextView mCost;
-        public TextView mRating;
+        ImageView mThumb;
+        TextView mName;
+        TextView mCuisines;
+        TextView mCost;
+        TextView mRating;
 
-        public RestaurantHolder(View itemView) {
+        RestaurantHolder(View itemView) {
             super(itemView);
             mThumb = (ImageView) itemView.findViewById(R.id.thumb);
             mName = (TextView) itemView.findViewById(R.id.name);

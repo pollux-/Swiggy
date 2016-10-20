@@ -11,10 +11,23 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+
     }
     buildTypes {
 
+        debug {
+            def DEVELOPMENT_BASE_URL = '"https://api.myjson.com/"'
+            def SERVER_BASE_URL = "SERVER_BASE_URL"
+            buildConfigField "String", SERVER_BASE_URL, DEVELOPMENT_BASE_URL
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
         release {
+            def DEVELOPMENT_BASE_URL = '"https://api.myjson.com/"'
+            def SERVER_BASE_URL = "SERVER_BASE_URL"
+            buildConfigField "String", SERVER_BASE_URL, DEVELOPMENT_BASE_URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

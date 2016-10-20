@@ -21,7 +21,7 @@ import rx.functions.Func1;
 public class RestaurantListInteractorImpl implements RestaurantListInteractor {
     @Override
     public Observable<Restaurant> getRestaurantListInteractorList(int pageNo) {
-        return SwiggyService.getSwiggyService().getRestaurntList(pageNo).map(new Func1<Restaurant, Restaurant>() {
+        return SwiggyService.getSwiggyService().getRestaurantList(pageNo).map(new Func1<Restaurant, Restaurant>() {
             @Override
             public Restaurant call(Restaurant restaurant) {
                 if (restaurant != null) {
