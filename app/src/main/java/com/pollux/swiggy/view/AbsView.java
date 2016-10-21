@@ -1,9 +1,9 @@
 package com.pollux.swiggy.view;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
- * Copyright (C) 2015 YMediaLabs
+ * Copyright (C) 2015 Sree Kumar
  */
 public interface AbsView {
     void onRequestSubmitted();

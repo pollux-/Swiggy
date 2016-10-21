@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.pollux.swiggy.model.Restaurant;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */

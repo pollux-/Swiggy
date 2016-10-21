@@ -2,6 +2,7 @@ package com.pollux.swiggy.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */
@@ -90,9 +91,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             restaurantHolder.mRating.setText(restaurants.getAvgRating());
             Picasso.with(restaurantHolder.mThumb.getContext())
                     .load(restaurantHolder.mName.getContext().getString(R.string.img_url)
-                            + restaurantHolder.mThumb.getHeight() + ",q_100,w_"
-                            + restaurantHolder.mThumb.getWidth() + "/" + restaurants.cid)
+                            + restaurants.cid)
                     .into(restaurantHolder.mThumb);
+            restaurantHolder.mMore.setTag(restaurants);
+
+            if (!TextUtils.isEmpty(restaurants.getChainRestuarntFormatted()))
+                restaurantHolder.mMore.setVisibility(View.VISIBLE);
+            else
+                restaurantHolder.mMore.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -115,6 +121,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView mCuisines;
         TextView mCost;
         TextView mRating;
+        TextView mChain;
+        View mMore;
 
         RestaurantHolder(View itemView) {
             super(itemView);
@@ -123,6 +131,22 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mCuisines = (TextView) itemView.findViewById(R.id.cuisine);
             mCost = (TextView) itemView.findViewById(R.id.cost);
             mRating = (TextView) itemView.findViewById(R.id.rating);
+            mMore = itemView.findViewById(R.id.more);
+            mChain = (TextView) itemView.findViewById(R.id.chain);
+
+            mMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final int toggleVisibility = mChain.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE;
+                    mChain.setVisibility(toggleVisibility);
+                    Restaurant.Restaurants restaurants = (Restaurant.Restaurants) v.getTag();
+                    if (toggleVisibility == View.VISIBLE) {
+                        mChain.setText(restaurants.getChainRestuarntFormatted());
+                    }
+
+                }
+            });
+
         }
     }
 }

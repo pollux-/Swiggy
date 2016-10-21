@@ -3,7 +3,7 @@ package com.pollux.swiggy.model;
 import java.util.List;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */
@@ -24,6 +24,7 @@ public class Restaurant {
         public String cid;
         public List<String> cuisine;
         public String cuisineFormatted;
+        public String chainRestuarntFormatted;
         public String costForTwo;
         public List<Restaurants> chain;
 
@@ -61,6 +62,10 @@ public class Restaurant {
 
         public String getCuisineFormatted() {
             return cuisineFormatted;
+        }
+
+        public String getChainRestuarntFormatted() {
+            return chainRestuarntFormatted;
         }
     }
 

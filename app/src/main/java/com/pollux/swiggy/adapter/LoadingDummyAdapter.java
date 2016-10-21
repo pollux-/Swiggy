@@ -11,7 +11,7 @@ import com.pollux.swiggy.R;
 
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */

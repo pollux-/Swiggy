@@ -22,8 +22,11 @@ import com.pollux.swiggy.presenter.RestaurantListPresenter;
 import com.pollux.swiggy.presenter.RestaurantListPresenterImpl;
 import com.pollux.swiggy.view.RestaurantView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */
@@ -34,6 +37,12 @@ public class HomeFragment extends Fragment implements RestaurantView {
     private RestaurantListPresenter mPresenter;
     private RecyclerView mList;
     private ShimmerFrameLayout mShimmerFrameLayout;
+    private LinearLayoutManager mLinearLayoutManager;
+    private int mPageNo = 1;
+    private boolean mDownloadInFlight;
+    private View mProgess;
+    private List<Restaurant.Restaurants> mResturants;
+    private RestaurantAdapter mAdapter;
 
 
     public static HomeFragment newInstance() {
@@ -51,26 +60,35 @@ public class HomeFragment extends Fragment implements RestaurantView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       final View  view  = inflater.inflate(R.layout.fragment_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_list, container, false);
         mList = (RecyclerView) view.findViewById(R.id.list);
         mShimmerFrameLayout = (ShimmerFrameLayout) view.findViewById(R.id.shimmer);
+        mProgess = view.findViewById(R.id.progress);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mResturants = new ArrayList<>();
         mPresenter = new RestaurantListPresenterImpl(this);
-        mPresenter.getRestaurantList(1);
+        mPresenter.getRestaurantList(mPageNo);
         setDummyAdapter();
 
     }
 
     private void setAdapter(Restaurant restaurants) {
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mList.setLayoutManager(linearLayoutManager);
-        mList.setAdapter(new RestaurantAdapter(getActivity(), restaurants.getRestaurants()));
+        mResturants.addAll(restaurants.getRestaurants());
+        if (mAdapter == null) {
+            mAdapter = new RestaurantAdapter(getActivity(), mResturants);
+            mLinearLayoutManager = new LinearLayoutManager(getActivity());
+            mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mList.setLayoutManager(mLinearLayoutManager);
+            mList.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+
+        }
     }
 
     /**
@@ -83,23 +101,32 @@ public class HomeFragment extends Fragment implements RestaurantView {
     public void onDownloadRestaurantDetails(@NonNull Restaurant restaurants) {
         Log.d(TAG, "onDownloadRestaurantDetails " + restaurants);
         setAdapter(restaurants);
+        addPaginationListener();
+        mPageNo++;
     }
 
     @Override
     public void onRequestSubmitted() {
         Log.d(TAG, "onRequestSubmitted ");
+        mDownloadInFlight = true;
+        if(mResturants.size() > 0){
+            mProgess.setVisibility(View.VISIBLE);
+        }
 
     }
 
     @Override
     public void onRequestComplete() {
         mShimmerFrameLayout.stopShimmerAnimation();
+        mDownloadInFlight = false;
+        mProgess.setVisibility(View.GONE);
 
     }
 
     @Override
     public void onError(String message) {
         Log.e(TAG, "On error " + message);
+        mProgess.setVisibility(View.GONE);
 
     }
 
@@ -118,9 +145,9 @@ public class HomeFragment extends Fragment implements RestaurantView {
                         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ITEM_HEIGHT,
                                 getActivity().getResources().getDisplayMetrics()));
                 mList.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                mList.setLayoutManager(linearLayoutManager);
+                mLinearLayoutManager = new LinearLayoutManager(getActivity());
+                mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                mList.setLayoutManager(mLinearLayoutManager);
                 mList.setAdapter(new LoadingDummyAdapter(getActivity(), count));
                 mShimmerFrameLayout.setDuration(START_DELAY);
                 mShimmerFrameLayout.startShimmerAnimation();
@@ -128,6 +155,26 @@ public class HomeFragment extends Fragment implements RestaurantView {
         });
 
 
+    }
+
+
+    private void addPaginationListener() {
+        mList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    int visibleItemCount = mLinearLayoutManager.getChildCount();
+                    int totalItemCount = mLinearLayoutManager.getItemCount();
+                    int firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+                    if (!mDownloadInFlight) {
+                        if ((visibleItemCount + firstVisibleItem) >= totalItemCount) {
+                            mPresenter.getRestaurantList(mPageNo);
+
+                        }
+                    }
+                }
+            }
+        });
     }
 
 }

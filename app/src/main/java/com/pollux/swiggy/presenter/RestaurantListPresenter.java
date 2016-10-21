@@ -1,7 +1,7 @@
 package com.pollux.swiggy.presenter;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */

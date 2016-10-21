@@ -5,7 +5,7 @@ import com.pollux.swiggy.model.Restaurant;
 import rx.Observable;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */

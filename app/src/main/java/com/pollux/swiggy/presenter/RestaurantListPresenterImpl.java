@@ -10,7 +10,7 @@ import rx.Subscriber;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */

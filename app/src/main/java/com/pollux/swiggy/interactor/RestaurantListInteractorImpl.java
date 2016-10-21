@@ -10,7 +10,7 @@ import rx.Observable;
 import rx.functions.Func1;
 
 /**
- * Created by YMediaLabs
+ * Created by Sree Kumar
  * <p>
  * Copyright (C) 2016
  */
@@ -29,13 +29,22 @@ public class RestaurantListInteractorImpl implements RestaurantListInteractor {
                     if (restaurants != null && restaurants.size() > 0) {
                         for (Restaurant.Restaurants rest : restaurants) {
                             if (rest != null && rest.getCuisine() != null) {
-                                rest.cuisineFormatted ="";
+                                rest.cuisineFormatted = "";
                                 final List<String> cuisines = rest.getCuisine();
                                 for (String cuisine : cuisines) {
                                     rest.cuisineFormatted += cuisine + ",";
                                 }
-                                rest.cuisineFormatted = rest.cuisineFormatted.substring(0,rest.cuisineFormatted.length()-1);
+                                rest.cuisineFormatted = rest.cuisineFormatted.substring(0, rest.cuisineFormatted.length() - 1);
+
+                                final List<Restaurant.Restaurants> chain = rest.getChain();
+                                if (chain != null && chain.size() > 0) {
+                                    rest.chainRestuarntFormatted = "";
+                                    for (Restaurant.Restaurants restaurants1 : chain) {
+                                        rest.chainRestuarntFormatted += restaurants1.getName() + " at " +restaurants1.getCity()  + "\n";
+                                    }
+                                }
                             }
+
                         }
                     }
 
